@@ -1,0 +1,42 @@
+packer {
+  required_plugins {
+    docker = {
+      version = ">= 0.0.7"
+      source  = "github.com/hashicorp/docker"
+    }
+  }
+}
+
+source "docker" "ubuntu" {
+  image  = "ubuntu:jammy"
+  commit = true
+}
+
+variable "image_name" {
+  type    = string
+  default = "coredge-base-image-v22"
+}
+
+build {
+  name = "Coredge-image"
+  sources = [
+    "source.docker.ubuntu"
+  ]
+
+  provisioner "shell" {
+    inline = [
+      "apt-get update",
+      "apt-get install -y apt-utils figlet"
+    ]
+  }
+
+  provisioner "shell" {
+    inline = [
+      "echo '-----------------------'",
+      "figlet '${var.image_name}'",
+      "figlet 'This is Certified Base Image for containers from Coredge.IO'",
+      "echo '-----------------------'"
+    ]
+  }
+}
+
