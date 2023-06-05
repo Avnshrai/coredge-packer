@@ -7,8 +7,8 @@ jobs:
      runs-on: ubuntu-latest
      env:
        TAG: python-api
-       PAT: ${{ secrets.GITHUB_TOKEN }}
-       USER: frankisinfotech
+       PAT: ${{ secrets.SECRET }}
+       USER: avnshrai
        REGISTRY: ghcr.io
        VERSION: v1
      
