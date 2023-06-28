@@ -20,14 +20,17 @@ jobs:
        run: docker pull coredgeio/prometheus-beta:v1
        
        
-     - name: Image Scan
-       uses: aquasecurity/trivy-action@master
+     - name: Run Trivy vulnerability scanner in fs mode
+       uses: anandg112/trivy-action@feat/add-skip-dirs-option
        with:
-          image-ref: 'coredgeio/prometheus-beta:v1'
-#           security-checks: 'vuln,secret,config'
-          format: 'sarif'
-          output: 'trivy-image-results.sarif'
-          severity: 'CRITICAL,HIGH,LOW,MEDIUM'
+          scan-type: 'fs'
+#          scan-ref: '.'
+          ignore-unfixed: true
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results-fs.sarif'
+          severity: 'CRITICAL'
+          skip-dirs: "ignored-dir"
      - name: List files
        run: cat trivy-image-results.sarif
           
