@@ -17,7 +17,7 @@ jobs:
        uses: actions/checkout@v1
        
      - name: Pull Docker Image
-       run: docker pull coredgeio/ubuntu-base-beta:v1
+       run: docker pull coredgeio/prometheus-beta:v1
        
        
      - name: Image Scan
