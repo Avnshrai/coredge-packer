@@ -23,6 +23,7 @@ jobs:
      - name: Run Trivy vulnerability scanner in fs mode
        uses: anandg112/trivy-action@feat/add-skip-dirs-option
        with:
+          image-ref: 'coredgeio/prometheus-beta:v1'
           scan-type: 'fs'
 #          scan-ref: '.'
           ignore-unfixed: true
