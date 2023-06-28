@@ -24,7 +24,7 @@ jobs:
        uses: aquasecurity/trivy-action@master
        with:
           image-ref: 'coredgeio/prometheus-beta:v1'
-          security-checks: 'vuln,secret,config'
+#           security-checks: 'vuln,secret,config'
           format: 'sarif'
           output: 'trivy-image-results.sarif'
           severity: 'CRITICAL,HIGH,LOW,MEDIUM'
@@ -33,6 +33,7 @@ jobs:
           
      - name: Upload the scan result to GitHub Security
        uses: github/codeql-action/upload-sarif@v2
+       if: always()
        with:
           sarif_file: 'trivy-image-results.sarif'
           category: 'image'
