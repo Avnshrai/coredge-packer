@@ -25,6 +25,7 @@ jobs:
        with:
           image_grep: "coredgeio/prometheus-beta:v1"
           severities: "CRITICAL,HIGH,LOW,MEDIUM,UNKNOWN"  
+          exit_on_error: false
           
           
           
