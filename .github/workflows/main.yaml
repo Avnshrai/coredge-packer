@@ -19,28 +19,26 @@ jobs:
      - name: Pull Docker Image
        run: docker pull coredgeio/prometheus-beta:v1
        
-       
-     - name: Run Trivy vulnerability scanner in fs mode
-       uses: anandg112/trivy-action@feat/add-skip-dirs-option
+     - name: Run Trivy vulnerability scanner
+       uses: aquasecurity/trivy-action@master
        with:
           image-ref: 'coredgeio/prometheus-beta:v1'
-          scan-type: 'fs'
-#          scan-ref: '.'
-          ignore-unfixed: true
-          format: 'template'
-          template: '@/contrib/sarif.tpl'
-          output: 'trivy-results-fs.sarif'
-          severity: 'CRITICAL'
-          skip-dirs: "ignored-dir"
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+     - name: Upload Trivy scan results to GitHub Security tab
+       uses: github/codeql-action/upload-sarif@v2
+       with:
+          sarif_file: 'trivy-results.sarif'
      - name: List files
        run: cat trivy-image-results.sarif
           
-     - name: Upload the scan result to GitHub Security
-       uses: github/codeql-action/upload-sarif@v2
-       if: always()
-       with:
-          sarif_file: 'trivy-image-results.sarif'
-          category: 'image'
+#      - name: Upload the scan result to GitHub Security
+#        uses: github/codeql-action/upload-sarif@v2
+#        if: always()
+#        with:
+#           sarif_file: 'trivy-image-results.sarif'
+#           category: 'image'
           
           
           
