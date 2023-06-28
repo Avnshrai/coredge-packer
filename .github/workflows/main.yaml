@@ -17,7 +17,7 @@ jobs:
        uses: actions/checkout@v1
        
      - name: Pull Docker Image
-       run: docker pull coredgeio/grafana-beta:v1
+       run: docker pull rishabh0197/grafana:latest
        
        
      - name: Image Scan
